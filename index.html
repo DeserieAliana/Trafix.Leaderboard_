@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trafix App Leaderboard and Point Earnings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #111;
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .certificate-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .certificate {
+            font-size: 16px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trafix App Leaderboard & Point Earnings</h1>
+    <div class="container">
+        <div class="leaderboard-container">
+            <h2>Leaderboard</h2>
+            <table id="leaderboard">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Username</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rankings will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="point-earnings-container">
+            <h2>Point Earnings</h2>
+            <button id="travel1km">Travel 1 km</button>
+            <button id="redeemGiftCard">Redeem Gift Card</button>
+            <button id="dailyLogin">Daily Log In</button>
+            <button id="welcomeReward">Welcome Reward</button>
+        </div>
+
+        <div class="certificate-container">
+            <button id="downloadCertificate">Download Certificate</button>
+            <p class="certificate" id="certificateMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        // Users and their points
+        let users = [
+            { username: 'User1', points: 0 },
+            { username: 'User2', points: 0 },
+            { username: 'User3', points: 0 }
+        ];
+
+        // Function to update the leaderboard
+        function updateLeaderboard() {
+            const leaderboardTable = document.getElementById('leaderboard').getElementsByTagName('tbody')[0];
+            leaderboardTable.innerHTML = ''; // Clear existing rows
+
+            // Sort users by points
+            users.sort((a, b) => b.points - a.points);
+
+            // Add sorted rows to leaderboard
+            users.forEach((user, index) => {
+                const row = leaderboardTable.insertRow();
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${user.username}</td>
+                    <td>${user.points}</td>
+                `;
+            });
+        }
+
+        // Simulate "Travel 1 km" and earn points
+        document.getElementById('travel1km').addEventListener('click', function() {
+            // Add 1 point for traveling 1 km
+            users[0].points += 1;
+            updateLeaderboard();
+            alert("You earned 1 point for traveling 1 km!");
+        });
+
+        // Simulate "Redeem Gift Card"
+        document.getElementById('redeemGiftCard').addEventListener('click', function() {
+            // Add 50 points for redeeming a gift card
+            users[0].points += 50;
+            updateLeaderboard();
+            alert("You earned 50 points for redeeming a gift card!");
+        });
+
+        // Simulate "Daily Log In"
+        document.getElementById('dailyLogin').addEventListener('click', function() {
+            // Add 0.5 points for daily log in
+            users[0].points += 0.5;
+            updateLeaderboard();
+            alert("You earned 0.5 points for logging in today!");
+        });
+
+        // Simulate "Welcome Reward"
+        document.getElementById('welcomeReward').addEventListener('click', function() {
+            // Add 10 points for the welcome reward (once)
+            users[0].points += 10;
+            updateLeaderboard();
+            alert("You earned 10 points for the welcome reward!");
+        });
+
+        // Simulate downloading certificate
+        document.getElementById('downloadCertificate').addEventListener('click', function() {
+            const certificateMessage = "Congratulations! Your certificate for achieving Rank 1 is ready for download.";
+            document.getElementById('certificateMessage').textContent = certificateMessage;
+            alert("Certificate downloaded successfully!");
+        });
+
+        // Initial leaderboard update
+        updateLeaderboard();
+    </script>
+</body>
+</html>
